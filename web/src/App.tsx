@@ -1,4 +1,5 @@
 import GameBanner from "./components/GameBanner.tsx"
+import CreateAdBanner from "./components/CreateAdBanner.tsx"
 
 import "./styles/main.css"
 import logoNLWEsports from "./assets/logo-nlw-esports.svg"
@@ -17,6 +18,8 @@ function App() {
         <GameBanner name="Dota 2" ads={4} bannerUrl="./src/assets/banner5.png"/>
         <GameBanner name="Fortnite" ads={4} bannerUrl="./src/assets/banner6.png"/>
       </div>
+
+      <CreateAdBanner/>
     </div>
   )
 }
