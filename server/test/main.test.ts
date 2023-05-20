@@ -70,3 +70,21 @@ describe("Testing games API", () => {
         }
     })
 })
+
+describe("Testing ads API", () => {
+    it("Get discord from a specific ad from API", async () => {
+        let data = (await getGames()).data
+
+        for (const game of data.games) {
+            if (game._count.ads != 0) {
+                let data = (await getAds(game.id)).data
+
+                const response = await fetch(`${API_URL}/ads/${data.ads[0].id}/discord`)
+                data = await response.json()
+
+                expect(response.status).toBe(200)
+                expect(data).toHaveProperty("discord")
+            }
+        }
+    })
+})
