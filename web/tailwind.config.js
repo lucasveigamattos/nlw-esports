@@ -12,6 +12,7 @@ export default {
       "nlw-gradient": "linear-gradient(89.86deg, #9572FC, #43E7AD, #E1D55D)",
       "nlw-border": "linear-gradient(90deg, #9572FC, #43E7AD, #E2D45C)",
       shadow: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 67.08%)",
+      down: "url('./src/assets/down.svg')",
       check: "url('./src/assets/check.svg')"
     },
     extend: {},

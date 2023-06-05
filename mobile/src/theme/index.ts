@@ -16,7 +16,7 @@ export const THEME = {
       ALERT: '#F87171',
   
       FOOTER: ['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)'],
-      OVERLAY: 'rgba(0,0,0,0.6)'
+      OVERLAY: 'rgba(18,18,20,0.6)'
     },
   
     FONT_FAMILY: {

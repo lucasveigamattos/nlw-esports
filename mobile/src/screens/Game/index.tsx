@@ -8,6 +8,7 @@ import {AdCardProps} from "../../components/AdCard"
 
 import Heading from "../../components/Heading"
 import AdCard from "../../components/AdCard"
+import SuccessModal from "../../components/SuccessModal"
 
 import {styles} from "./styles"
 import back from "../../assets/back.png"
@@ -15,6 +16,7 @@ import logo from "../../assets/logo-nlw-esports.png"
 
 function Game() {
     const [ads, setAds] = useState<AdCardProps[]>([])
+    const [duoConnect, setDuoConnect] = useState("")
 
     const navigation = useNavigation()
     const game = useRoute().params as GameRouteParams
@@ -24,6 +26,11 @@ function Game() {
         const data = await response.json()
 
         setAds(data.ads)
+    }
+
+    async function getDisocrd(adId: string) {
+        const response = await fetch(`http://192.168.15.11:3000/ads/${adId}/discord`)
+        return (await response.json()).discord
     }
 
     useEffect(() => {
@@ -50,11 +57,13 @@ function Game() {
 
             <FlatList data={ads} keyExtractor={ad => ad.id} renderItem={(ad) => {
                 return (
-                    <AdCard key={ad.item.id} id={ad.item.id} name={ad.item.name} yearsPlaying={ad.item.yearsPlaying} weekDays={ad.item.weekDays} hourStart={ad.item.hourStart} hourEnd={ad.item.hourEnd} useVoiceChannel={ad.item.useVoiceChannel}/>
+                    <AdCard key={ad.item.id} id={ad.item.id} name={ad.item.name} yearsPlaying={ad.item.yearsPlaying} weekDays={ad.item.weekDays} hourStart={ad.item.hourStart} hourEnd={ad.item.hourEnd} useVoiceChannel={ad.item.useVoiceChannel} onConnect={(discord: string) => {setDuoConnect(discord)}}/>
                 )
-            }} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={ads.length > 0 ? styles.flatList : styles.emptyFlatList} ListEmptyComponent={() => (
+            }} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={ads.length > 0 ? styles.flatList : styles.emptyFlatList} style={styles.containerList} ListEmptyComponent={() => (
                 <Text style={styles.empty}>Não há anúncios publicados para esse jogo ainda.</Text>
             )}/>
+
+            <SuccessModal discord={duoConnect} onClose={() => {setDuoConnect("")}} visible={duoConnect.length > 0}/>
         </SafeAreaView>
     )
 }

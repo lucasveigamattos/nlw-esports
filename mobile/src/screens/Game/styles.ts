@@ -38,12 +38,18 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
     },
     flatList: {
+        justifyContent: "flex-start",
         alignItems: "flex-start",
         gap: 16,
         paddingRight: 64,
         paddingLeft: 32,
     },
+    containerList:{
+        width: "100%"
+    },
     emptyFlatList: {
+        flex: 1,
+        justifyContent: "center",
         alignItems: "center"
     },
     empty: {

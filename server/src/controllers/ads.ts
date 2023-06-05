@@ -6,18 +6,18 @@ import convertHourStringToMinutes from "../utils/convert-hour-string-to-minutes"
 const prisma = new PrismaClient()
 
 async function createAd(request: Request, response: Response) {
-    const {name, yearsPlaying, discord, hourStart, hourEnd, useVoiceChannel} = request.body
+    const {game, nickname, yearsPlaying, discord, weekDays, hourStart, hourEnd, useVoiceChannel} = request.body
 
     const ad = await prisma.ad.create({
         data: {
-            gameId: request.params.id,
-            name,
-            yearsPlaying,
+            gameId: game,
+            name: nickname,
+            yearsPlaying: Number(yearsPlaying),
             discord,
-            weekDays: request.body.weekDays.join(","),
+            weekDays: JSON.parse(weekDays).join(","),
             hourStart: convertHourStringToMinutes(hourStart),
             hourEnd: convertHourStringToMinutes(hourEnd),
-            useVoiceChannel,
+            useVoiceChannel: useVoiceChannel == "on" ? true : false,
         }
     })
 

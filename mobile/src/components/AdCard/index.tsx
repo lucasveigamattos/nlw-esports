@@ -14,10 +14,16 @@ export interface AdCardProps {
     weekDays: Array<string>,
     hourStart: string,
     hourEnd: string,
-    useVoiceChannel: boolean
+    useVoiceChannel: boolean,
+    onConnect: (value: string) => void
 }
 
 function AdCard(props: AdCardProps) {
+    async function getDisocrd() {
+        const response = await fetch(`http://192.168.15.11:3000/ads/${props.id}/discord`)
+        return (await response.json()).discord
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.infoSection}>
@@ -30,7 +36,9 @@ function AdCard(props: AdCardProps) {
                 <DuoInfo label="Chamada de áudio?" info={props.useVoiceChannel ? "Sim" : "Não"} infoColor={props.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT}/>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={async () => {
+                props.onConnect(await getDisocrd())
+            }}>
                 <Image source={gameController}/>
                 <Text style={styles.buttonText}>Conectar</Text>
             </TouchableOpacity>
